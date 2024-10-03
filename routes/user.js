@@ -6,16 +6,16 @@ const {Router}=require('express');
 const userRouter=Router();    //instance of a Router class
 
 
-    userRouter.post("/user/signup", (req,res)=>{
+    userRouter.post("/signup", (req,res)=>{
         res.json({message:"user created"});
     })
     
-    userRouter.post("/user/signin", (req,res)=>{
+    userRouter.post("/signin", (req,res)=>{
         res.json({message:"user signed in"});
     })
     
     
-    userRouter.get("/user/purchases", (req,res)=>{
+    userRouter.get("/purchases", (req,res)=>{
         res.json({message:"All user purchases"});
     })
 
