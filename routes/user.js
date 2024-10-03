@@ -1,19 +1,25 @@
+// const express=require('express');            //---> This is a object having a key Router
+// const userRouter=express.Router;
 
-function createUserRoutes(app){
-    app.post("/user/signup", (req,res)=>{
+//              OR
+const {Router}=require('express');
+const userRouter=Router();    //instance of a Router class
 
+
+    userRouter.post("/user/signup", (req,res)=>{
+        res.json({message:"user created"});
     })
     
-    app.post("/user/signin", (req,res)=>{
-        
+    userRouter.post("/user/signin", (req,res)=>{
+        res.json({message:"user signed in"});
     })
     
     
-    app.get("/user/purchases", (req,res)=>{
-        
+    userRouter.get("/user/purchases", (req,res)=>{
+        res.json({message:"All user purchases"});
     })
-}
+
 
 module.exports={
-    createUserRoutes:createUserRoutes
+    userRouter:userRouter
 }
