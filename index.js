@@ -1,26 +1,10 @@
 const express=require('express');
 const app=express();
 
-app.post("/user/signup", (req,res)=>{
+const {createUserRoutes}=require('./routes/user');
+const {createCourseRoutes}=require('./routes/courses');
 
-})
-
-app.post("/user/signin", (req,res)=>{
-    
-})
-
-
-app.get("/user/purchases", (req,res)=>{
-    
-})
-
-app.post("/course/purchase", (req,res)=>{
-    //right now we are not accepting payment scenerio
-    
-})
-
-app.get("/courses", (req,res)=>{
-    
-})
+createUserRoutes(app);
+createCourseRoutes(app);
 
 app.listen(3000);
