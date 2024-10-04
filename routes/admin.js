@@ -55,12 +55,30 @@ const { adminMiddleware } = require('../middleware/admin');
         res.json({message:"Course created", courseId:course._id});
     })
 
-    adminRouter.put("/course", (req,res)=>{
-        res.json({message:"admin updated a course"});
+    adminRouter.put("/course", adminMiddleware, async(req,res)=>{
+        const adminId=req.adminId;
+        const {title, description, imageUrl, price, courseId} = req.body;
+
+        //TODO: create a saas in 6 hours as we are taking imageUrl from user
+        const course= await courseModel.updateOne({
+            _id: courseId,
+            creatorId: adminId
+        },{
+            title:title,
+            description:description,
+            imageUrl:imageUrl,
+            price:price,
+        })
+
+        res.json({message:"Course updated", courseId:course._id});
     })
 
-    adminRouter.get("/course/bulk", (req,res)=>{
-        res.json({message:"admin sees all courses"});
+    adminRouter.get("/course/bulk", adminMiddleware, async(req,res)=>{
+        const adminId=req.adminId;
+        const courses=await courseModel.find({creatorId:adminId});
+
+        res.json({message:"admin sees all courses", courses});
+
     })
 
     module.exports={
