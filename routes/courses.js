@@ -1,7 +1,6 @@
 const {Router}=require('express');
 const courseRouter=Router();
 
-
     courseRouter.post("/purchase", (req,res)=>{
         //right now we are not accepting payment scenerio
         res.json({message:"Course purchased"});
