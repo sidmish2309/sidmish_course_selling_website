@@ -50,7 +50,12 @@ const { userMiddleware } = require('../middleware/user');
         const userId=req.userId;
         const purchases=await purchaseModel.find({userId:userId});
 
-        res.json({message:"All user purchases", purchases});
+        //As we don't have course data in the PURCHASE database, we are fetching it from the database
+        const courseData=await courseModel.find({
+            _id:{$in:purchases.map(x=>x.courseId)}
+        });
+
+        res.json({message:"All user purchases", purchases, courseData});
     })
 
 
