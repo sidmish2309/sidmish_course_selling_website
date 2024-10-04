@@ -7,7 +7,7 @@ const userRouter=Router();    //instance of a Router class
 const {userModel}=require('../db')
 
 const jwt=require('jsonwebtoken');
-const JWT_USER_PASSWORD="sidmish2309";
+const {JWT_USER_PASSWORD}=require('../config');
 
 
     userRouter.post("/signup", async(req,res)=>{

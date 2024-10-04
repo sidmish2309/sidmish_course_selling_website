@@ -3,7 +3,8 @@ const adminRouter=Router();
 const {adminModel}=require('../db')
 
 const jwt=require('jsonwebtoken');
-const JWT_ADMIN_PASSWORD="alok1112";
+const {JWT_ADMIN_PASSWORD}=require('../config');
+const { adminMiddleware } = require('../middleware/admin');
 
     adminRouter.post("/signup", async(req,res)=>{
         const {email, password, firstName, lastName} = req.body;
@@ -37,8 +38,21 @@ const JWT_ADMIN_PASSWORD="alok1112";
        }
     })
     
-    adminRouter.post("/course", (req,res)=>{
-        res.json({message:"admin created a course"});
+    adminRouter.post("/course", adminMiddleware ,async(req,res)=>{
+
+        const adminId=req.adminId;
+        const {title, description, imageUrl, price} = req.body;
+
+        //TODO: create a saas in 6 hours as we are taking imageUrl from user
+        const course= await courseModel.create({
+            title:title,
+            description:description,
+            imageUrl:imageUrl,
+            price:price,
+            creatorId:adminId
+        })
+
+        res.json({message:"Course created", courseId:course._id});
     })
 
     adminRouter.put("/course", (req,res)=>{
