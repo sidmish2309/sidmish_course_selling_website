@@ -8,6 +8,7 @@ const {userModel}=require('../db')
 
 const jwt=require('jsonwebtoken');
 const {JWT_USER_PASSWORD}=require('../config');
+const { userMiddleware } = require('../middleware/user');
 
 
     userRouter.post("/signup", async(req,res)=>{
@@ -45,8 +46,11 @@ const {JWT_USER_PASSWORD}=require('../config');
     })
     
     
-    userRouter.get("/purchases", (req,res)=>{
-        res.json({message:"All user purchases"});
+    userRouter.get("/purchases", userMiddleware, async(req,res)=>{
+        const userId=req.userId;
+        const purchases=await purchaseModel.find({userId:userId});
+
+        res.json({message:"All user purchases", purchases});
     })
 
 

@@ -9,6 +9,7 @@ const {purchaseModel, courseModel}=require('../db');
         const userId=req.userId;
         const courseId=req.body.courseId;
 
+        //TODO: ideally we should check if user have completed the payment or not
         await purchaseModel.create({
             userId:userId,
             courseId:courseId
